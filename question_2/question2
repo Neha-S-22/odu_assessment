@@ -1,1 +1,47 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load the dataset
+autos_df = pd.read_csv('autos.csv', encoding='cp1252')
+
+# Task a: Find average price of autos
+avg_price = autos_df['price'].mean()
+print(f"Average price of autos: {avg_price:.2f} USD")
+
+# Task b: Print list of different possible types of VehicleType
+vehicle_types = autos_df['vehicleType'].unique()
+print("Possible vehicle types:")
+for vehicle_type in vehicle_types:
+    print(vehicle_type)
+
+# Task c: Calculate and print lowest and highest yearOfRegistration
+min_year = autos_df['yearOfRegistration'].min()
+max_year = autos_df['yearOfRegistration'].max()
+print(f"Lowest year of registration: {min_year}")
+print(f"Highest year of registration: {max_year}")
+
+# Task d: Find and print standard deviation of column kilometer
+std_km = autos_df['kilometer'].std()
+print(f"Standard deviation of column kilometer: {std_km:.2f}")
+
+# Task e: Draw a bar graph to represent count of different type of column brand
+brand_count = autos_df['brand'].value_counts()
+plt.bar(brand_count.index, brand_count.values)
+plt.xticks(rotation=90)
+plt.xlabel('Brand')
+plt.ylabel('Count')
+plt.title('Count of Different Brands')
+plt.show()
+
+# Task f: Find out which VehicleType is sold minimum and maximum
+min_type = autos_df.groupby('vehicleType')['price'].sum().idxmin()
+max_type = autos_df.groupby('vehicleType')['price'].sum().idxmax()
+print(f"VehicleType sold minimum: {min_type}")
+print(f"VehicleType sold maximum: {max_type}")
+
+# Task g: Create a pie chart to represent different types of gearbox count
+gearbox_count = autos_df['gearbox'].value_counts()
+plt.pie(gearbox_count.values, labels=gearbox_count.index, autopct='%1.1f%%')
+plt.title('Count of Different Gearbox Types')
+plt.show()
 
